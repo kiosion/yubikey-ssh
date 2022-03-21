@@ -2,7 +2,7 @@
   <h1>How to use a Yubikey for SSH authentication</h1>
 </div>
 
-I decided to create this short guide as I couldn't find much in the way of guides when setting this up myself, and initially found the process a bit confusing myself (I'm by no means an expert with this stuff).
+I decided to create this short guide as I couldn't find much in the way of guides when setting this up myself, and initially found the process a bit confusing (I'm by no means an expert with this stuff).
 
 All the guides I *did* find on using a Yubikey for SSH authentication involved using its Smart Card slot for GPG, which is unnecessary and over-complicated as using [yubikey-agent](https://github.com/FiloSottile/yubikey-agent), we can use the Authentication slot (9a), and leave the Smart Card slot open for other uses.
 
