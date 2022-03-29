@@ -36,7 +36,7 @@ yubikey-agent can be installed using Homebrew: `brew install yubikey-agent`. Aft
 ## STEPS
 
 ### 1. Generate a new key
-Here, you could either choose `yubikey-agent -setup`, or, use yubikey-manager to generate a key. I chose the second option, and reccomend it, as although yubikey-agent is easier, it doesn't give any granularity with the type or length of key generated. 
+Here, you could either choose `yubikey-agent -setup`, or, use yubikey-manager to generate a key. I chose the second option and reccomend it, as although yubikey-agent is easier, it doesn't give any control over the type or length of key generated. 
 
 \*\*It's also important to note that `yubikey-agent -setup` generates a random Management Key and stores it in PIN-protected metadata[^1], making it difficult to use the other PIV slots without some hack-y workarounds.\*\*
 
