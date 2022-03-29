@@ -11,7 +11,9 @@ All the guides I *did* find on using a Yubikey for SSH authentication involved u
 ### 1. Install yubikey-manager
 
 #### Linux
-yubikey-manager can be used as either an AppImage from [Yubikey's website](https://www.yubico.com/support/download/yubikey-manager/) or installed from your package manager. On Arch Linux, it's avaliable under the name [`yubikey-manager-qt`](https://archlinux.org/packages/community/x86_64/yubikey-manager-qt/); or [`yubikey-manager`](https://archlinux.org/packages/community/x86_64/yubikey-manager/) for the CLI version.
+yubikey-manager can be used as either an AppImage from [Yubikey's website](https://www.yubico.com/support/download/yubikey-manager/) or installed from your package manager. 
+- On Arch Linux, it's avaliable under the name [`yubikey-manager-qt`](https://archlinux.org/packages/community/x86_64/yubikey-manager-qt/); or just [`yubikey-manager`](https://archlinux.org/packages/community/x86_64/yubikey-manager/) for the CLI version (`paru/yay -S yubikey-manager-qt`).
+- On Ubuntu, it's also available under the name [`yubikey-manager-qt`](https://packages.ubuntu.com/search?suite=default&section=all&arch=any&keywords=yubikey-manager-qt&searchon=names); or just [`yubikey-manager`](https://packages.ubuntu.com/search?suite=default&section=all&arch=any&keywords=yubikey-manager&searchon=names) for the CLI version (`sudo apt-get install yubikey-manager-qt`).
 
 After installation, `pcscd.service` needs to be enabled and started: `sudo systemctl enable pcscd.service --now`. 
 
@@ -29,14 +31,14 @@ yubikey-agent can be installed using the [`yubikey-agent`](https://aur.archlinux
 After installation, it needs to be enabled and started: `systemctl daemon-reload --user && systemctl --user enable yubikey-agent.service --now`.
 
 #### MacOS
-yubikey-agent can be installed using Homebrew using `brew install yubikey-agent`. After installation, it needs to be enabled using `brew services start yubikey-agent`.
+yubikey-agent can be installed using Homebrew: `brew install yubikey-agent`. After installation, it needs to be enabled using `brew services start yubikey-agent`.
 
 ## STEPS
 
 ### 1. Generate a new key
-Here, you could either choose `yubikey-agent -setup`, or, use yubikey-manager to generate a key. I chose the second option, as although yubikey-agent is easier, it didn't give me the granularity I wanted. 
+Here, you could either choose `yubikey-agent -setup`, or, use yubikey-manager to generate a key. I chose the second option, and reccomend it, as although yubikey-agent is easier, it doesn't give any granularity with the type or length of key generated. 
 
-It's also important to note that `yubikey-agent -setup` generates a random Management Key and stores it in PIN-protected metadata[^1], making it difficult to use the other PIV slots.
+\*\*It's also important to note that `yubikey-agent -setup` generates a random Management Key and stores it in PIN-protected metadata[^1], making it difficult to use the other PIV slots without some hack-y workarounds.\*\*
 
 #### a. Using yubikey-manager
 To generate a new key using the yubikey-manager software, navigate to the 'Applications > PIV' tab, and make sure the 'Authentication' slot is selected. If there's already a certificate present, **make sure** it's not important and not in use. Overwriting the slot is **not** reversible.
@@ -58,7 +60,7 @@ First find the location of the yubikey-agent socket. You can look at the output 
 #### Fish
 Open your config and add  `set -gx SSH_AUTH_SOCK "/run/user/{Your UID}/yubikey-agent/yubikey-agent.sock"`, where the path is the location of the yubikey-agent socket.
 
-#### Bash / ZSH
+#### Bash / ZSH / SH
 Open your config and add `export SSH_AUTH_SOCK="/run/user/{Your UID}/yubikey-agent/yubikey-agent.sock"`, where the path is the location of the yubikey-agent socket.
 
 ## NOTES
